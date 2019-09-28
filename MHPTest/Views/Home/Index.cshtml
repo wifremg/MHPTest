@@ -1,0 +1,56 @@
+﻿@model MHPTest.Models.FormClass
+
+@{
+    Layout = null;
+}
+
+<html>
+
+<head>
+
+    <title>MHP Calculator</title>
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
+
+</head>
+
+<body>
+    <div align="center">
+        @using (Html.BeginForm())
+        {
+            <img class="image" src="http://mhp-net.es/wp-content/uploads/2016/07/logo-mhp-software-color.png" />
+            <fieldset id="rcorners1">
+                <div>
+                    <p id="text">@Html.DisplayFor(Model => Model.Error_Message)</p>
+                </div>
+                <div>
+                    @Html.EditorFor(Model => Model.Operation)
+                </div>
+                <div>
+                    <input class="button" type="submit" value="Calculate" />
+                </div>
+                <div>
+                    <p id="text"><b>Operations:</b></p>
+                    @for (var i = 0; i < Model.Text.Count; i++)
+                    {<p id="text">@Html.DisplayFor(Model => Model.Text[@i])</p>}
+                </div>
+            </fieldset>
+            <p id="instructions">
+                <b><i>Basic Instructions:</i></b>
+            </p>
+            <p id="instructions">
+                The system only supports numbers, or the following mathematical operators (+, -, /, *).
+            </p>
+            <p id="instructions">
+                Square roots are calculated by inserting a letter "S" (capital letters only) and the
+            </p>
+            <p id="instructions">
+                decimal numbers will be distinguished by having a ",". Only one space between characters
+            </p>
+            <p id="instructions">
+                is allowed.Example: 2 3,4 + 9 S 7,34 * -
+            </p>
+            }
+        </div>
+</body>
+
+</html>
