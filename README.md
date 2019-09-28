@@ -1,50 +1,30 @@
-# Proficiency Test: TuriTop Booking Filter
+# Knowledge Test: Developer C#
 
-This small project shows an interface developed in React. It is composed of some filters that will model the way to display information, related to reservations, obtained from the TuriTop API.
+This small project shows a calculator in Polish inverse notation format. For the evaluation of candidates for the MHP Software company.
 
 ## Getting Started
 
 ### Prerequisites
 
-For the correct operation of the project you need to install [Node.js]
-(https://nodejs.org/es/).
+The project was compiled with the Community 2019 version of Microsoft Visual Studio (v 16.2.5). So we recommend using this one, although it should work in minor versions. Make sure you have ASP.NET and web tools installed.
 
-After installation you must test its correct operation with the following commands:
-#### `node -v` 
-#### `npm -v`
+## Running a simple test
 
-Download the project, this is available in [Github](https://github.com/wifremg/BookingTuriTop).
-
-### Installing
-
-In the project directory, run:
-
-#### `npm install`
-Install basic dependeces
-
-#### `npm start`
-Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-## Running a test
-
-A very simple test will allow us to evaluate the operation of the project reservation filter.
+A very simple test will allow us to evaluate the operation of the project.
 
 Starting Basic End to End Verification:
 1. Run the project.
-2. Click in the Search Button and look at the list of results.
-3. Choose page number 2 in the pagination item.
-4. Choose a Booking Start Date and Time.
-5. Choose a Booking End Date and Time.
-6. Select a Booking Status.
-7. Click in the Search Button and look at the list of results.
+2. In the edit section insert this without the parentheses (2 3,4 + 9 S 7,34 * -).
+3. Click the Calculate button.
+4. See the results inthe Operations section.
+5. Clean the editor.
+6. Insert a string with invalid characters. Example: (4 5 - 7 + @).
+7. Watch the feedback message.
 8. Close the project.
 
-Unit Test:
-For experimental purposes, a basic unit test was created, to execute it you can use the following command:
+### Help
 
-#### `npm test`
-Run test mode
+For more information you can read the texts included in the application.
 
 ## Deployment
 
@@ -52,18 +32,17 @@ This project is only a test exercise and will be used to make candidate selectio
 
 ## Built With
 
-1. VS Code 1.38.0
-2. Node.js 10.16.3
-3. Git 2.23.0
-4. React
-  a. TuriTop Boilerplate ( includes Axios, Ant Design,... )
+1. Microsoft Visual Studio Community 2019 (v 16.2.5)
+2. .NET Core 3.0
+3. C#
+4. Git 2.23.0
 
 ## Other considerations
 
-* Name: TuriTop Booking Filter
-* Version: 1.0 (09/15/2019)
+* Name: MHP Test
+* Version: 1.0 (09/28/2019)
 * Author: MSc. Wifredo Massó Gómez
-* License: Free. For internal use of TuriTop
+* License: Free. For internal use of MHP Solutions
 
 
 

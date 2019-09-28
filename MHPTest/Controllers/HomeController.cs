@@ -15,6 +15,47 @@ namespace MHPTest.Controllers
             return View(model);
         }
 
+        //---------------------------------------
+        public String Operations ( 
+            ref String temp, 
+            ref Stack Numbers, 
+            ref Boolean insert,
+            String symbol)
+        {
+            Double one = 0;                                       // First element of the operation
+            Double two = 0;                                       // Second element of the operation
+            Double total = 0;                                     // Total. Element to store
+
+            temp = "";
+            insert = false;
+            two = (double)Numbers.Pop();                          // Reading from the stack
+
+            if (symbol == "S")
+            {
+                total = Math.Sqrt(two);
+                Numbers.Push(total);                             // Saving the total result
+                return two.ToString("0.00") + " SQRT = " +
+                       total.ToString("0.00");
+            }
+            else
+            {
+                one = (double)Numbers.Pop();                     // Reading from the stack
+
+                if (symbol == "+") { total = one + two; }        // Operations
+                if (symbol == "-") { total = one - two; }
+                if (symbol == "*") { total = one * two; }
+                if (symbol == "/") { total = one / two; }
+
+                Numbers.Push(total);                              // Saving the total result 
+                return one.ToString("0.00") + " " +               // Creating the string that will be displayed
+                   symbol + " " +
+                   two.ToString("0.00") + " = " +
+                   total.ToString("0.00");
+
+            }
+        }
+
+        //------------------------------------------
         [HttpPost]
         public ActionResult Index(FormClass model)                // Post Action
         {
@@ -28,11 +69,7 @@ namespace MHPTest.Controllers
             {
                 Stack Numbers = new Stack();                      // Stores the data I read from the chain in a stack
                 String temp = "";                                 // Temporarily save the character
-                Double one = 0;                                   // First element of the operation
-                Double two = 0;                                   // Second element of the operation
-                Double total = 0;                                 // Total. Element to store
                 Boolean insert = false;                           // Variable that authorizes saving on the stack
-                String symbol = "";                               // Operation
                 int i = 0;                                        // Counter
                 while ((i < model.Operation.Length) && (!error))
                 {     
@@ -48,80 +85,42 @@ namespace MHPTest.Controllers
                     {
                         if (model.Operation[i] == '+')            // Sum
                         {
-                            two = (double)Numbers.Pop();          // Reading from the stack
-                            one = (double)Numbers.Pop();          
-                            total = one + two;
-                            Numbers.Push(total);                  // Saving the result
-                            symbol = "+";
-                            model.Text.Add(one.ToString("0.00") + " " + 
-                                           symbol + " " + 
-                                           two.ToString("0.00") + " = " + 
-                                           total.ToString("0.00"));
-                            temp = "";
-                            insert = false;
+                            model.Text.Add(
+                                Operations(
+                                    ref temp, ref Numbers, ref insert, "+"));
                         }
-                        else if (model.Operation[i] == '-')
+                        else if (model.Operation[i] == '-')       // Subtraction
                         {
-                            two = (double)Numbers.Pop();
-                            one = (double)Numbers.Pop();
-                            total = one - two;
-                            Numbers.Push(total);
-                            symbol = "-";
-                            model.Text.Add(one.ToString("0.00") + " " + 
-                                           symbol + " " + 
-                                           two.ToString("0.00") + " = " + 
-                                           total.ToString("0.00"));
-                            temp = "";
-                            insert = false;
+                            model.Text.Add(
+                                Operations(
+                                    ref temp, ref Numbers, ref insert, "-"));
                         }
-                        else if (model.Operation[i] == '*')
+                        else if (model.Operation[i] == '*')       // Multiplication
                         {
-                            two = (double)Numbers.Pop();
-                            one = (double)Numbers.Pop();
-                            total = one * two;
-                            Numbers.Push(total);
-                            symbol = "*";
-                            model.Text.Add(one.ToString("0.00") + " " + 
-                                           symbol + " " + 
-                                           two.ToString("0.00") + " = " + 
-                                           total.ToString("0.00"));
-                            temp = "";
-                            insert = false;
+                            model.Text.Add(
+                               Operations(
+                                   ref temp, ref Numbers, ref insert, "*"));
                         }
-                        else if (model.Operation[i] == '/')
+                        else if (model.Operation[i] == '/')       // Division
                         {
-                            two = (double)Numbers.Pop();
-                            one = (double)Numbers.Pop();
-                            total = one / two;
-                            Numbers.Push(total);
-                            symbol = "/";
-                            model.Text.Add(one.ToString("0.00") + " " + 
-                                           symbol + " " + 
-                                           two.ToString("0.00") + " = " + 
-                                           total.ToString("0.00"));
-                            temp = "";
-                            insert = false;
+                            model.Text.Add(
+                               Operations(
+                                   ref temp, ref Numbers, ref insert, "/"));
                         }
-                        else if (model.Operation[i] == 'S')
+                        else if (model.Operation[i] == 'S')       // Square root
                         {
-                            one = (double)Numbers.Pop();
-                            total = Math.Sqrt(one);
-                            Numbers.Push(total);
-                            symbol = "SQRT";
-                            model.Text.Add(one.ToString("0.00") + " " + 
-                                           symbol + " = " + 
-                                           total.ToString("0.00"));
-                            temp = "";
-                            insert = false;
+                            model.Text.Add(
+                               Operations(
+                                   ref temp, ref Numbers, ref insert, "S"));
                         }
-                        else if (model.Operation[i] != ' ')
+                        else if (model.Operation[i] != ' ')       // Not a space and not operator, then a number
                         {
-                            temp = temp + model.Operation[i];
+                            temp = temp + model.Operation[i];     // Creating the string with the number
                             insert = true;
                         }
-                        else if (insert == true)
+                        else if (insert == true)                  // Blank space. After a number, insert.
                         {
-                            Numbers.Push(Convert.ToDouble(temp));
+                            Numbers.Push(Convert.ToDouble(temp)); // Inserting the number in the stack
                             temp = "";
                             insert = false;
                         }
@@ -129,7 +128,7 @@ namespace MHPTest.Controllers
                     }
                     else
                     {
-                        model.Error_Message = "Unvalid entry";
+                        model.Error_Message = "Unvalid entry";    // Feedback message
                         error = true;
                     }                    
                 }

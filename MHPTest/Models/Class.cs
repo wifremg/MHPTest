@@ -9,7 +9,7 @@ namespace MHPTest.Models
         public FormClass()            // Constructor
         {
             this.Text = new List<String>();
-            this.Error_Message = "MHP Software Test";
+            this.Error_Message = "Polish Reverse Notation Calculator";
             this.Operation = "";
         }
 
